@@ -119,7 +119,12 @@ branch_ref() {
 
 readable_branch_name() {
   if is_repo; then
-    printf '%s' "$(branch_name || printf '%s' "detached@$(commit_short_sha)")"
+    local yellow_prefix="\x01\033[1;33m\x02"
+    local reset_suffix="\x01\033[0m\x02"
+    local branch_name="$(branch_name || printf '%s' "detached@$(commit_short_sha)")"
+
+    #printf '%s' "$(branch_name || printf '%s' "detached@$(commit_short_sha)")"
+    printf $yellow_prefix$branch_name$reset_suffix
   fi
 }
 
